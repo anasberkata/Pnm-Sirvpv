@@ -253,3 +253,145 @@ function rv_detail_delete($id_rvd)
 
     return mysqli_affected_rows($conn);
 }
+
+
+
+
+// PAYMENT VOUCHER
+function pv_add($data)
+{
+    global $conn;
+
+    $pv_date = $data["pv_date"];
+    $nama_bank = $data["nama_bank"];
+    $no_bank = $data["no_bank"];
+    $deskripsi = $data["deskripsi"];
+    $pnm_bilyet = $data["pnm_bilyet"];
+    $id_user = $data["id_user"];
+
+    $cek_pv = mysqli_query($conn, "SELECT pv_date FROM pv WHERE pv_date = '$pv_date'");
+
+    // Cek Username Mahasiswa Sudah Ada Atau Belum
+    if (mysqli_fetch_assoc($cek_pv)) {
+        echo "<script>
+            alert('Payment Voucher Sudah Ada!');
+            document.location.href = 'pv_add.php';
+            </script>";
+    } else {
+        $query = "INSERT INTO pv
+				VALUES
+			(NULL, '$pv_date', '$nama_bank', '$no_bank', '$deskripsi', '$pnm_bilyet', '$id_user')
+			";
+
+        mysqli_query($conn, $query);
+    }
+
+    return mysqli_affected_rows($conn);
+}
+
+function pv_edit($data)
+{
+    global $conn;
+
+    $id_pv = $data["id_pv"];
+    $pv_date = $data["pv_date"];
+    $nama_bank = $data["nama_bank"];
+    $no_bank = $data["no_bank"];
+    $deskripsi = $data["deskripsi"];
+    $pnm_bilyet = $data["pnm_bilyet"];
+    $id_user = $data["id_user"];
+
+    $query = "UPDATE pv SET
+			pv_date = '$pv_date',
+			nama_bank = '$nama_bank',
+			no_bank = '$no_bank',
+			deskripsi = '$deskripsi',
+			pnm_bilyet = '$pnm_bilyet',
+			id_user = '$id_user'
+
+            WHERE id_pv = $id_pv
+			";
+
+    mysqli_query(
+        $conn,
+        $query
+    );
+
+    return mysqli_affected_rows($conn);
+}
+
+function pv_delete($id_pv)
+{
+    global $conn;
+
+    $pv_delete = mysqli_query($conn, "DELETE FROM pv WHERE id_pv = $id_pv");
+    $pvd_delete = mysqli_query($conn, "DELETE FROM pv_detail WHERE id_pv = $id_pv");
+
+    // pvd_delete($id_pv);
+
+    return mysqli_affected_rows($conn);
+}
+
+function pvd_delete($id_pv)
+{
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM pv_detail WHERE id_pv = $id_pv");
+    return mysqli_affected_rows($conn);
+}
+
+function pv_detail_add($data)
+{
+    global $conn;
+
+    $id_pv = $data["id_pv"];
+    $drcr = $data["drcr"];
+    $nama_akun = $data["nama_akun"];
+    $no_akun = $data["no_akun"];
+    $jumlah = $data["jumlah"];
+
+    $query = "INSERT INTO pv_detail
+				VALUES
+			(NULL, '$id_pv', '$drcr', '$nama_akun', '$no_akun', '$jumlah')
+			";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function pv_detail_edit($data)
+{
+    global $conn;
+
+    $id_pvd = $data["id_pvd"];
+    $drcr = $data["drcr"];
+    $nama_akun = $data["nama_akun"];
+    $no_akun = $data["no_akun"];
+    $jumlah = $data["jumlah"];
+
+    $query = "UPDATE pv_detail SET
+			drcr = '$drcr',
+			nama_akun = '$nama_akun',
+			no_akun = '$no_akun',
+			jumlah = '$jumlah'
+
+            WHERE id_pv_detail = $id_pvd
+			";
+
+    mysqli_query(
+        $conn,
+        $query
+    );
+
+    return mysqli_affected_rows($conn);
+}
+
+function pv_detail_delete($id_pvd)
+{
+    global $conn;
+
+    $pvd_delete = mysqli_query($conn, "DELETE FROM pv_detail WHERE id_pv_detail = $id_pvd");
+
+    return mysqli_affected_rows($conn);
+}

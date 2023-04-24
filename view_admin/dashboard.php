@@ -1,6 +1,15 @@
 <?php
 session_start();
 include "../templates/header.php";
+
+$rv = query("SELECT * FROM rv");
+$rv_amount = query("SELECT SUM(jumlah) AS amount FROM rv_detail")[0];
+
+$pv = query("SELECT * FROM pv");
+$pv_amount = query("SELECT SUM(jumlah) AS amount FROM pv_detail")[0];
+
+$total_rv = count($rv);
+$total_pv = count($pv);
 ?>
 
 <main class="content">
@@ -16,53 +25,25 @@ include "../templates/header.php";
                 <div class="card-body">
                   <div class="row">
                     <div class="col mt-0">
-                      <h5 class="card-title">Sales</h5>
+                      <h5 class="card-title">Receive Voucher</h5>
                     </div>
 
                     <div class="col-auto">
                       <div class="stat text-primary">
-                        <i class="align-middle" data-feather="truck"></i>
+                        <i class="align-middle" data-feather="arrow-down"></i>
                       </div>
                     </div>
                   </div>
-                  <h1 class="mt-1 mb-3">2.382</h1>
-                  <div class="mb-0">
-                    <span class="text-danger">
-                      <i class="mdi mdi-arrow-bottom-right"></i> -3.65%
-                    </span>
-                    <span class="text-muted">Since last week</span>
-                  </div>
+                  <h1 class="mt-1 mb-3">
+                    <?= $total_rv ?>
+                  </h1>
                 </div>
               </div>
               <div class="card">
                 <div class="card-body">
                   <div class="row">
                     <div class="col mt-0">
-                      <h5 class="card-title">Visitors</h5>
-                    </div>
-
-                    <div class="col-auto">
-                      <div class="stat text-primary">
-                        <i class="align-middle" data-feather="users"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <h1 class="mt-1 mb-3">14.212</h1>
-                  <div class="mb-0">
-                    <span class="text-success">
-                      <i class="mdi mdi-arrow-bottom-right"></i> 5.25%
-                    </span>
-                    <span class="text-muted">Since last week</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col mt-0">
-                      <h5 class="card-title">Earnings</h5>
+                      <h5 class="card-title">Total Receive Voucher</h5>
                     </div>
 
                     <div class="col-auto">
@@ -71,20 +52,36 @@ include "../templates/header.php";
                       </div>
                     </div>
                   </div>
-                  <h1 class="mt-1 mb-3">$21.300</h1>
-                  <div class="mb-0">
-                    <span class="text-success">
-                      <i class="mdi mdi-arrow-bottom-right"></i> 6.65%
-                    </span>
-                    <span class="text-muted">Since last week</span>
+                  <h1 class="mt-1 mb-3">Rp.
+                    <?= number_format($rv_amount["amount"], 2, ',', '.'); ?>
+                  </h1>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col mt-0">
+                      <h5 class="card-title">Payment Voucher</h5>
+                    </div>
+
+                    <div class="col-auto">
+                      <div class="stat text-primary">
+                        <i class="align-middle" data-feather="arrow-up"></i>
+                      </div>
+                    </div>
                   </div>
+                  <h1 class="mt-1 mb-3">
+                    <?= $total_pv ?>
+                  </h1>
                 </div>
               </div>
               <div class="card">
                 <div class="card-body">
                   <div class="row">
                     <div class="col mt-0">
-                      <h5 class="card-title">Orders</h5>
+                      <h5 class="card-title">Total Payment Voucher</h5>
                     </div>
 
                     <div class="col-auto">
@@ -93,13 +90,9 @@ include "../templates/header.php";
                       </div>
                     </div>
                   </div>
-                  <h1 class="mt-1 mb-3">64</h1>
-                  <div class="mb-0">
-                    <span class="text-danger">
-                      <i class="mdi mdi-arrow-bottom-right"></i> -2.25%
-                    </span>
-                    <span class="text-muted">Since last week</span>
-                  </div>
+                  <h1 class="mt-1 mb-3">Rp.
+                    <?= number_format($pv_amount["amount"], 2, ',', '.'); ?>
+                  </h1>
                 </div>
               </div>
             </div>
@@ -108,21 +101,6 @@ include "../templates/header.php";
       </div>
 
       <div class="col-xl-6 col-xxl-7">
-        <div class="card flex-fill w-100">
-          <div class="card-header">
-            <h5 class="card-title mb-0">Recent Movement</h5>
-          </div>
-          <div class="card-body py-3">
-            <div class="chart chart-sm">
-              <canvas id="chartjs-dashboard-line"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
         <div class="card flex-fill">
           <div class="card-header">
             <h5 class="card-title mb-0">Calendar</h5>
@@ -137,6 +115,7 @@ include "../templates/header.php";
         </div>
       </div>
     </div>
+
   </div>
 </main>
 

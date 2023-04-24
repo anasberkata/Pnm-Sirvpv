@@ -2,22 +2,19 @@
 session_start();
 include "../templates/header.php";
 
-
 if (!isset($_POST["date_search"])) {
-  $receive_voucher = query(
-    "SELECT * FROM rv
-  INNER JOIN users ON users.id_user = rv.id_user"
+  $payment_voucher = query(
+    "SELECT * FROM pv
+  INNER JOIN users ON users.id_user = pv.id_user"
   );
 } else {
   $date_search = $_POST["date_search"];
-  $receive_voucher = query(
-    "SELECT * FROM rv
-    INNER JOIN users ON users.id_user = rv.id_user
-    WHERE rv_date = '$date_search'
-    "
+  $payment_voucher = query(
+    "SELECT * FROM pv
+  INNER JOIN users ON users.id_user = pv.id_user
+  WHERE pv_date = '$date_search'"
   );
 }
-
 ?>
 
 <main class="content">
@@ -25,10 +22,10 @@ if (!isset($_POST["date_search"])) {
 
     <div class="row">
       <div class="col-6">
-        <h1 class="h3 mb-3">Receive Voucher</h1>
+        <h1 class="h3 mb-3">Payment Voucher</h1>
       </div>
       <div class="col-6 text-end">
-        <a href="rv_add.php" class="btn btn-info text-white"><i class="align-middle" data-feather="plus-circle"></i>
+        <a href="pv_add.php" class="btn btn-info text-white"><i class="align-middle" data-feather="plus-circle"></i>
           Tambah</a>
       </div>
     </div>
@@ -39,7 +36,7 @@ if (!isset($_POST["date_search"])) {
           <div class="card-header">
             <div class="row">
               <div class="col-12 col-lg-8">
-                <h5 class="card-title mb-3">Data Receive Voucher</h5>
+                <h5 class="card-title mb-0">Data Payment Voucher</h5>
               </div>
               <div class="col-12 col-lg-4">
                 <form action="" method="POST">
@@ -50,7 +47,6 @@ if (!isset($_POST["date_search"])) {
                           data-feather="search"></i></button>
                     </div>
                   </div>
-
                 </form>
               </div>
             </div>
@@ -67,28 +63,28 @@ if (!isset($_POST["date_search"])) {
             </thead>
             <tbody>
               <?php $i = 1; ?>
-              <?php foreach ($receive_voucher as $rv): ?>
+              <?php foreach ($payment_voucher as $pv): ?>
                 <tr>
                   <td>
                     <?= $i; ?>
                   </td>
                   <td>
-                    <?= date('d F Y', strtotime($rv["rv_date"])); ?>
+                    <?= date('d F Y', strtotime($pv["pv_date"])); ?>
                   </td>
                   <td class="d-none d-xl-table-cell">
-                    <?= $rv["deskripsi"]; ?>
+                    <?= $pv["deskripsi"]; ?>
                   </td>
                   <td class="d-none d-xl-table-cell">
-                    <?= $rv["nama"]; ?>
+                    <?= $pv["nama"]; ?>
                   </td>
                   <td>
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <a href="rv_detail.php?id=<?= $rv["id_rv"]; ?>" class="btn btn-success text-white mt-1"><i
+                      <a href="pv_detail.php?id=<?= $pv["id_pv"]; ?>" class="btn btn-success text-white mt-1"><i
                           class="align-middle" data-feather="inbox"></i></a>
-                      <a href="rv_edit.php?id=<?= $rv["id_rv"]; ?>" class="btn btn-info text-white mt-1"><i
+                      <a href="pv_edit.php?id=<?= $pv["id_pv"]; ?>" class="btn btn-info text-white mt-1"><i
                           class="align-middle" data-feather="edit"></i></a>
-                      <a href="rv_delete.php?id=<?= $rv["id_rv"]; ?>" class="btn btn-danger text-white mt-1"
-                        onclick="return confirm('Yakin ingin menghapus receive voucher tanggal <?= date('d F Y', strtotime($rv['rv_date'])); ?>?');"><i
+                      <a href="pv_delete.php?id=<?= $pv["id_pv"]; ?>" class="btn btn-danger text-white mt-1"
+                        onclick="return confirm('Yakin ingin menghapus payment voucher tanggal <?= date('d F Y', strtotime($pv['pv_date'])); ?>?');"><i
                           class="align-middle" data-feather="trash"></i></a>
                     </div>
                   </td>

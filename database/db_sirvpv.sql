@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 23, 2023 at 09:53 PM
+-- Generation Time: Apr 24, 2023 at 08:14 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -30,9 +30,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `pv` (
   `id_pv` int(11) NOT NULL,
   `pv_date` date NOT NULL,
-  `deskripsi` varchar(255) NOT NULL,
+  `nama_bank` varchar(255) NOT NULL,
+  `no_bank` varchar(50) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `pnm_bilyet` varchar(255) NOT NULL,
   `id_user` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pv`
+--
+
+INSERT INTO `pv` (`id_pv`, `pv_date`, `nama_bank`, `no_bank`, `deskripsi`, `pnm_bilyet`, `id_user`) VALUES
+(1, '2023-04-24', 'BNI', '0203456432', '<p>Penarikan dana pencairan cabang cilincing dan agrabinta</p>\r\n', '', 1),
+(5, '2023-04-26', 'BCA', '019827816782', '<p>haha</p>\r\n', '545454', 1);
 
 -- --------------------------------------------------------
 
@@ -48,6 +59,14 @@ CREATE TABLE `pv_detail` (
   `no_akun` varchar(100) NOT NULL,
   `jumlah` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pv_detail`
+--
+
+INSERT INTO `pv_detail` (`id_pv_detail`, `id_pv`, `drcr`, `nama_akun`, `no_akun`, `jumlah`) VALUES
+(3, 1, 'DR', 'Biaya Admin Bank ', '', 25000),
+(4, 1, 'DR', 'Pajak Jasa Bank', '', 7520);
 
 -- --------------------------------------------------------
 
@@ -92,7 +111,7 @@ CREATE TABLE `rv_detail` (
 INSERT INTO `rv_detail` (`id_rv_detail`, `id_rv`, `drcr`, `nama_akun`, `no_akun`, `jumlah`) VALUES
 (1, 2, 'DR', 'Bank 1/11', '32143', 20000000),
 (2, 2, 'DR', 'Kas 1/11', '123412', 2900000),
-(3, 1, 'CR', 'Kas 1/12', '12345', 2500000);
+(7, 1, 'DR', 'Kas 1/13', '12345', 1000000);
 
 -- --------------------------------------------------------
 
@@ -186,13 +205,13 @@ ALTER TABLE `users_role`
 -- AUTO_INCREMENT for table `pv`
 --
 ALTER TABLE `pv`
-  MODIFY `id_pv` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pv_detail`
 --
 ALTER TABLE `pv_detail`
-  MODIFY `id_pv_detail` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pv_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `rv`
@@ -204,7 +223,7 @@ ALTER TABLE `rv`
 -- AUTO_INCREMENT for table `rv_detail`
 --
 ALTER TABLE `rv_detail`
-  MODIFY `id_rv_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_rv_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

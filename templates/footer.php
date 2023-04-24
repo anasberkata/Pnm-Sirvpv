@@ -17,7 +17,13 @@
 
 <script src="../assets/js/app.js"></script>
 <script src="../vendor/ckeditor/ckeditor.js"></script>
-<!-- <script src=”../vendor/ckeditor/ckeditor.js”></script> -->
+<script src="../vendor/datatables/datatables.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#data').DataTable();
+    });
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -166,7 +172,7 @@
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
+        var date = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
         var defaultDate =
             date.getUTCFullYear() +
             "-" +

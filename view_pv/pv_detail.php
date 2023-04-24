@@ -2,21 +2,21 @@
 session_start();
 include "../templates/header.php";
 
-$id_rv = $_GET["id"];
+$id_pv = $_GET["id"];
 
-$rv = query(
-    "SELECT * FROM rv
-    WHERE id_rv = $id_rv"
+$pv = query(
+    "SELECT * FROM pv
+    WHERE id_pv = $id_pv"
 )[0];
 
-$rv_detail = query(
-    "SELECT * FROM rv_detail
-    INNER JOIN rv ON rv.id_rv = rv_detail.id_rv
-    WHERE rv_detail.id_rv = $id_rv"
+$pv_detail = query(
+    "SELECT * FROM pv_detail
+    INNER JOIN pv ON pv.id_pv = pv_detail.id_pv
+    WHERE pv_detail.id_pv = $id_pv"
 );
 
-$rv_amount = query(
-    "SELECT SUM(jumlah) AS amount FROM rv_detail WHERE id_rv = $id_rv"
+$pv_amount = query(
+    "SELECT SUM(jumlah) AS amount FROM pv_detail WHERE id_pv = $id_pv"
 )[0];
 ?>
 
@@ -25,14 +25,14 @@ $rv_amount = query(
 
         <div class="row">
             <div class="col-6">
-                <h1 class="h3 mb-3">Receive Voucher Detail</h1>
+                <h1 class="h3 mb-3">Payment Voucher Detail</h1>
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <a href="rv.php" class="btn btn-info text-white"><i class="align-middle"
+                    <a href="pv.php" class="btn btn-info text-white"><i class="align-middle"
                             data-feather="arrow-left"></i>
                         Kembali</a>
-                    <a href="rv_detail_add.php?id_rv=<?= $rv["id_rv"]; ?>" class="btn btn-info text-white"><i
+                    <a href="pv_detail_add.php?id_pv=<?= $pv["id_pv"]; ?>" class="btn btn-info text-white"><i
                             class="align-middle" data-feather="plus-circle"></i>
                         Tambah</a>
                 </div>
@@ -48,16 +48,25 @@ $rv_amount = query(
                                 <h5 class="card-title mb-0 mt-3">
                                     Tanggal :
                                     <strong>
-                                        <?= date('d F Y', strtotime($rv["rv_date"])); ?>
+                                        <?= date('d F Y', strtotime($pv["pv_date"])); ?>
                                     </strong>
                                 </h5>
                                 <p class="mt-3">
+                                    Nama Bank :
+                                    <?= $pv["nama_bank"]; ?>
+                                    <br>
+                                    No Bank :
+                                    <?= $pv["no_bank"]; ?>
+                                    <br>
                                     Deskripsi :
-                                    <?= $rv["deskripsi"]; ?>
+                                    <?= $pv["deskripsi"]; ?>
+                                    PNM Bilyet Giro / Cheque No. :
+                                    <?= $pv["pnm_bilyet"]; ?>
+                                    <br>
                                 </p>
                             </div>
                             <div class="col-6 text-end">
-                                <a href="rv_detail_print.php?id_rv=<?= $rv["id_rv"]; ?>"
+                                <a href="pv_detail_print.php?id_pv=<?= $pv["id_pv"]; ?>"
                                     class="btn btn-warning text-white" target="_blank"><i class="align-middle"
                                         data-feather="printer"></i>
                                     Print</a>
@@ -78,32 +87,32 @@ $rv_amount = query(
                         </thead>
                         <tbody>
                             <?php $i = 1; ?>
-                            <?php foreach ($rv_detail as $rvd): ?>
+                            <?php foreach ($pv_detail as $pvd): ?>
                                 <tr>
                                     <td>
                                         <?= $i; ?>
                                     </td>
                                     <td>
-                                        <?= $rvd["drcr"]; ?>
+                                        <?= $pvd["drcr"]; ?>
                                     </td>
                                     <td>
-                                        <?= $rvd["nama_akun"]; ?>
+                                        <?= $pvd["nama_akun"]; ?>
                                     </td>
                                     <td class="d-none d-xl-table-cell">
-                                        <?= $rvd["no_akun"]; ?>
+                                        <?= $pvd["no_akun"]; ?>
                                     </td>
                                     <td>
                                         Rp.
-                                        <?= number_format($rvd["jumlah"], 2, ',', '.'); ?>
+                                        <?= number_format($pvd["jumlah"], 2, ',', '.'); ?>
                                     </td>
                                     <td>
                                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                            <a href="rv_detail_edit.php?id_rvd=<?= $rvd["id_rv_detail"]; ?>&id_rv=<?= $rv["id_rv"]; ?>"
+                                            <a href="pv_detail_edit.php?id_pvd=<?= $pvd["id_pv_detail"]; ?>&id_pv=<?= $pv["id_pv"]; ?>"
                                                 class="btn btn-info text-white mt-1"><i class="align-middle"
                                                     data-feather="edit"></i></a>
-                                            <a href="rv_detail_delete.php?id_rvd=<?= $rvd["id_rv_detail"]; ?>&id_rv=<?= $rv["id_rv"]; ?>"
+                                            <a href="pv_detail_delete.php?id_pvd=<?= $pvd["id_pv_detail"]; ?>&id_pv=<?= $pv["id_pv"]; ?>"
                                                 class="btn btn-danger text-white mt-1"
-                                                onclick="return confirm('Yakin ingin menghapus <?= $rvd['nama_akun']; ?>?');"><i
+                                                onclick="return confirm('Yakin ingin menghapus <?= $pvd['nama_akun']; ?>?');"><i
                                                     class="align-middle" data-feather="trash"></i></a>
                                         </div>
                                     </td>
@@ -114,7 +123,7 @@ $rv_amount = query(
                                 <td colspan="4" class="text-center">TOTAL</td>
                                 <td>
                                     Rp.
-                                    <?= number_format($rv_amount["amount"], 2, ',', '.'); ?>
+                                    <?= number_format($pv_amount["amount"], 2, ',', '.'); ?>
                                 </td>
                             </tr>
                         </tbody>

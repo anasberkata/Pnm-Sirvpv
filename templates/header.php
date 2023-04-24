@@ -35,6 +35,11 @@ ini_set('display_errors', 1); //Atauerror_reporting(E_ALL && ~E_NOTICE);
 
     <link href="../assets/css/app.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+
+    <script src="../vendor/datatables/jquery-3.5.1.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+
+    <link href="../vendor/datatables/DataTables-1.13.4/css/jquery.dataTables.css" rel="stylesheet" />
 </head>
 
 <body>
