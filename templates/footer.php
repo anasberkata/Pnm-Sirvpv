@@ -172,7 +172,7 @@
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var date = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
+        var date = new Date(Date.now() + 0 * 24 * 60 * 60 * 1000);
         var defaultDate =
             date.getUTCFullYear() +
             "-" +
