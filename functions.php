@@ -38,12 +38,12 @@ function user_add($data)
     if (mysqli_fetch_assoc($cek_username)) {
         echo "<script>
             alert('Username Sudah Terdaftar!');
-            document.location.href = 'pengguna_add.php';
+            document.location.href = 'user_add.php';
             </script>";
     } else if (mysqli_fetch_assoc($cek_email)) {
         echo "<script>
             alert('Email Sudah Terdaftar!');
-            document.location.href = 'pengguna_add.php';
+            document.location.href = 'user_add.php';
             </script>";
     } else {
         $query = "INSERT INTO users

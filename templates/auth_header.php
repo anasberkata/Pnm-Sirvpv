@@ -10,11 +10,11 @@
     <meta name="keywords" content="PNM, Mekaar" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link rel="shortcut icon" href="assets/img/Logo Mekaar.png" />
+    <link rel="shortcut icon" href="./assets/img/Logo Mekaar.png" />
 
     <title>PNM Mekaar Syariah - Kadudampit</title>
 
-    <link href="assets/css/app.css" rel="stylesheet" />
+    <link href="./assets/css/app.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
 </head>
 
