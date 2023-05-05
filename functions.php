@@ -182,8 +182,8 @@ function rv_delete($id_rv)
 {
     global $conn;
 
+    rvd_delete($id_rv);
     $rv_delete = mysqli_query($conn, "DELETE FROM rv WHERE id_rv = $id_rv");
-    $rvd_delete = mysqli_query($conn, "DELETE FROM rv_detail WHERE id_rv = $id_rv");
 
     // rvd_delete($id_rv);
 
@@ -195,7 +195,6 @@ function rvd_delete($id_rv)
     global $conn;
 
     mysqli_query($conn, "DELETE FROM rv_detail WHERE id_rv = $id_rv");
-    return mysqli_affected_rows($conn);
 }
 
 function rv_detail_add($data)
@@ -324,8 +323,8 @@ function pv_delete($id_pv)
 {
     global $conn;
 
+    pvd_delete($id_pv);
     $pv_delete = mysqli_query($conn, "DELETE FROM pv WHERE id_pv = $id_pv");
-    $pvd_delete = mysqli_query($conn, "DELETE FROM pv_detail WHERE id_pv = $id_pv");
 
     // pvd_delete($id_pv);
 
@@ -337,7 +336,6 @@ function pvd_delete($id_pv)
     global $conn;
 
     mysqli_query($conn, "DELETE FROM pv_detail WHERE id_pv = $id_pv");
-    return mysqli_affected_rows($conn);
 }
 
 function pv_detail_add($data)
