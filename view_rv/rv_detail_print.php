@@ -38,7 +38,7 @@ $html = '
             <td width="30%">
                 Transaction Date
             </td>
-            <td>: ' . date('d F Y', strtotime($rv["rv_date"])) . '</td>
+            <td>: ' . date('F Y', strtotime($rv["rv_date"])) . '</td>
         </tr>
         <tr>
             <td width="30%">

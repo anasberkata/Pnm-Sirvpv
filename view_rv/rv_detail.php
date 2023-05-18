@@ -48,7 +48,7 @@ $rv_amount = query(
                                 <h5 class="card-title mb-0 mt-3">
                                     Tanggal :
                                     <strong>
-                                        <?= date('d F Y', strtotime($rv["rv_date"])); ?>
+                                        <?= date('F Y', strtotime($rv["rv_date"])); ?>
                                     </strong>
                                 </h5>
                                 <p class="mt-3">

@@ -73,7 +73,7 @@ if (!isset($_POST["date_search"])) {
                     <?= $i; ?>
                   </td>
                   <td>
-                    <?= date('d F Y', strtotime($rv["rv_date"])); ?>
+                    <?= date('F Y', strtotime($rv["rv_date"])); ?>
                   </td>
                   <td class="d-none d-xl-table-cell">
                     <?= $rv["deskripsi"]; ?>

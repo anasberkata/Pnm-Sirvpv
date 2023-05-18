@@ -50,7 +50,7 @@ $html = '
                 <br>
                 PNM Bilyet Giro
             </td>
-            <td>: ' . date('d F Y', strtotime($pv["pv_date"])) . '
+            <td>: ' . date('F Y', strtotime($pv["pv_date"])) . '
             <br>: ' . $pv["pnm_bilyet"] . '
             </td>
         </tr>
